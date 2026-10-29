@@ -38,6 +38,10 @@ python -m bot
 
 По умолчанию используются бесплатные модели [OpenRouter](https://openrouter.ai): ключ создаётся на openrouter.ai/keys и указывается в `LLM_API_KEY`. Если основная модель недоступна, бот по очереди пробует запасные (`LLM_FALLBACK_MODELS`). Подойдёт любой OpenAI-совместимый API: достаточно поменять `LLM_BASE_URL` и `LLM_MODEL`. Без ключа слова, квиз и статистика работают, отключаются только тексты и ИИ-подсказки.
 
+Вместо OpenRouter можно использовать GitHub Models: создать токен с правом **Models: Read-only** и указать в `.env` `LLM_BASE_URL=https://models.github.ai/inference`, `LLM_MODEL=openai/gpt-4.1-mini` (пример есть в `.env.example`).
+
+Проверить, что ИИ отвечает: `python -m scripts.check_llm`
+
 ## Структура
 
 ```
