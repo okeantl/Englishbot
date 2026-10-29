@@ -11,7 +11,7 @@ from bot.config import settings
 from bot.db import Session, User, Word
 
 router = Router()
-router.message.filter(F.from_user.id.in_(settings.admin_ids))
+router.message.filter(F.from_user.func(lambda u: settings.is_admin(u.id, u.username)))
 log = logging.getLogger(__name__)
 
 

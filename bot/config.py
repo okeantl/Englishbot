@@ -12,8 +12,16 @@ class Settings(BaseSettings):
     llm_model: str = "google/gemma-4-31b-it:free"
     llm_fallback_models: list[str] = ["google/gemma-4-26b-a4b-it:free", "nvidia/nemotron-3.5-lightning:free"]
 
-    admin_ids: list[int] = []
+    admin_ids: str = ""
     timezone: str = "Europe/Moscow"
+
+    @property
+    def admins(self) -> set[str]:
+        items = self.admin_ids.strip().strip("[]").replace(";", ",").split(",")
+        return {i.strip().strip("\"'").lstrip("@").lower() for i in items if i.strip().strip("\"'")}
+
+    def is_admin(self, user_id: int, username: str | None) -> bool:
+        return str(user_id) in self.admins or (username or "").lower() in self.admins
 
 
 settings = Settings()
